@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import com.enzorazuri.persistencia.gui.*;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -59,8 +60,9 @@ public class Panel2 extends JPanel {
 	private float emisiones;
 	private String clas;
 	private String modelo;
-	private String marca;
 	private int id;
+	GestorBBDDcoches gc = new GestorBBDDcoches("root", "", "127.0.0.1", "bbdd_gestmotor");
+	
 	/**
 	 * Create the panel.
 	 */
@@ -147,21 +149,7 @@ public class Panel2 extends JPanel {
 		JComboBox combo = new JComboBox();
 		combo.setBounds(324, 150, 85, 20);
 		panelDatos.add(combo);
-    	try {
-    		GestorBBDD gestor = new GestorBBDD("root", "", "127.0.0.1", "bbdd_gestmotor");
-			gestor.establecerConexion();
-			Statement stat = (Statement) gestor.conexion.createStatement();
-			ResultSet resultado = stat.executeQuery("SELECT marca from marcas");
-			while(resultado.next()){
-				combo.addItem(resultado.getObject("marca"));
-			}
-				
-			gestor.cerrarConexion();
-			
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		gc.comboMarcas(combo);
     	
     	
 		/*AGREGAR - TITULO*/
@@ -177,27 +165,33 @@ public class Panel2 extends JPanel {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				GestorBBDDcoches gc = new GestorBBDDcoches("root", "", "127.0.0.1", "bbdd_gestmotor");
 				try {
-					gc.establecerConexion();
-					
-					gc.getMarca(combo.getSelectedItem().toString());
-					
-					id = gc.setId();
-					
-					System.out.println(id);
-					
-					
-					/*modelo = modeloJt.getText();//Pasar JTextField a String
-					emisiones = Float.parseFloat(emisionesJt.getText());//Pasa a float un JTextField
-					clas = clasificacionJt.getText();
-					consumo = Float.parseFloat(consumoJt.getText()); 
-					gc.importarCochePS(3, "Prueba", consumo, emisiones, clas);*/
-					
-					
-					gc.cerrarConexion();
-					System.out.println("Ha pasado");
 
+					
+					if(gc.vacio(modeloJt,emisionesJt,clasificacionJt,consumoJt) == true){
+						JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.", "ERROR", JOptionPane.WARNING_MESSAGE);
+					}
+					
+				
+					
+					gc.establecerConexion();		
+					
+					gc.getMarca(combo.getSelectedItem().toString()); 
+	
+					id = gc.setId();
+					modelo = modeloJt.getText();//Pasar JTextField a String
+					emisiones = Float.parseFloat(emisionesJt.getText());//Pasa a float un JTextField					
+					clas = clasificacionJt.getText();
+					consumo = Float.parseFloat(consumoJt.getText());
+					
+
+					gc.importarCochePS(id, modelo, consumo, emisiones, clas);
+					
+					
+					JOptionPane.showMessageDialog(null, "Los datos han sido guardados.");
+					gc.cerrarConexion();
+										
+					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -205,6 +199,10 @@ public class Panel2 extends JPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				catch(NumberFormatException e){
+					System.out.println("Los campos no pueden quedar vacios");
+				}
+				
 		
 			}
 
@@ -212,7 +210,7 @@ public class Panel2 extends JPanel {
 				
 		});
 		
-		button.setIcon(new ImageIcon(Panel2.class.getResource("/iconos/Save.jpg")));
+		button.setIcon(new ImageIcon(Panel2.class.getResource("/assets/iconsapp/Save-as-icon.png")));
 		toolBar.add(button);
 		
 		

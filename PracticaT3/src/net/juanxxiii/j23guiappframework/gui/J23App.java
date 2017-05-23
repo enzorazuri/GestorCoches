@@ -103,9 +103,6 @@ public class J23App extends JFrame {
 				cl.show(contentPane, "Pantalla1");
 			}
 		});
-		mnPanel.add(mntmPanel_1);
-		
-		/*PORTADA DE INICIO EN MENU*/
 		JMenuItem mntmInicio = new JMenuItem("INICIO");
 		mntmInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -114,6 +111,9 @@ public class J23App extends JFrame {
 			}
 		});
 		mnPanel.add(mntmInicio);
+		mnPanel.add(mntmPanel_1);
+		
+		/*PORTADA DE INICIO EN MENU*/
 		
 		
 		/*AGREGAR EN MENU*/
@@ -168,7 +168,10 @@ public class J23App extends JFrame {
 		
 		
 		/*ASIGNANDO FUNCION AL BOTON DE CONSULTAR*/
-		JButton btnNewButton = new JButton("");
+		JButton btnNewButton = new JButton("CONSULTAR ");
+		btnNewButton.setForeground(new Color(128, 0, 0));
+		btnNewButton.setBackground(new Color(160, 82, 45));
+		btnNewButton.setFont(new Font("Eras Bold ITC", Font.PLAIN, 16));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout)contentPane.getLayout();
@@ -176,12 +179,10 @@ public class J23App extends JFrame {
 				
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon(J23App.class.getResource("/iconos/Search.jpg")));
-		btnNewButton.setBounds(67, 11, 47, 44);
-		portada.add(btnNewButton);
-		
-		/*ASIGNANDO FUNCION AL BOTON DE AGREGAR*/
-		JButton btnNewButton_1 = new JButton("");
+		JButton btnNewButton_1 = new JButton("AGREGAR");
+		btnNewButton_1.setForeground(new Color(128, 0, 0));
+		btnNewButton_1.setBackground(new Color(160, 82, 45));
+		btnNewButton_1.setFont(new Font("Eras Bold ITC", Font.PLAIN, 16));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout)contentPane.getLayout();
@@ -189,12 +190,12 @@ public class J23App extends JFrame {
 				
 			}
 		});
-		
-		
-		
-		btnNewButton_1.setIcon(new ImageIcon(J23App.class.getResource("/com/sun/javafx/scene/control/skin/caspian/images/capslock-icon.png")));
-		btnNewButton_1.setBounds(10, 11, 47, 44);
+		btnNewButton_1.setBounds(160, 308, 117, 31);
 		portada.add(btnNewButton_1);
+		btnNewButton.setBounds(312, 308, 150, 29);
+		portada.add(btnNewButton);
+		
+		/*ASIGNANDO FUNCION AL BOTON DE AGREGAR*/
 		
 		
 	}
