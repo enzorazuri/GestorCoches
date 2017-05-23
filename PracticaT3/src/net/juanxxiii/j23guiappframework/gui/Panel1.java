@@ -61,8 +61,6 @@ public class Panel1 extends JPanel {
 	private JTable table;
 	private String nModelo;
 	
-	
-	
 	public Panel1() {	 
 		
 		setBackground(SystemColor.info);
@@ -205,19 +203,34 @@ public class Panel1 extends JPanel {
 		botonEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				int pulsado = table.getSelectedRow();
-				nModelo = coches.get(pulsado).getnModelo();
+					
+					int pulsado = table.getSelectedRow();
+					
+					nModelo = coches.get(pulsado).getnModelo();
+					int id;
+					
+					try {
+						gc.getIdModelo(nModelo);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+
+					
+					
+					gc.mostrarId();
+					JOptionPane.showMessageDialog(null, "Has pulsado: " + nModelo);
+					
+					
+
 				
-				JOptionPane.showMessageDialog(null, "Has pulsado: " + nModelo);
 				
 				
-				try {
-					System.out.println("NOMBRE DEL MDOELO: " + coches.get(pulsado).getnModelo()+ " y su id: "
-				+ gc.getIdModelo(coches.get(pulsado).getnModelo()));
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
 			}
 		});
 		botonEliminar.setIcon(new ImageIcon(Panel1.class.getResource("/assets/iconsapp/recycle-bin-icon_Graph.png")));

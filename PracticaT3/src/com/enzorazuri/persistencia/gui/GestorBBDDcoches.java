@@ -57,18 +57,8 @@ public class GestorBBDDcoches extends GestorBBDD{
     	cerrarConexion();
     }
     
-    
-    public void importarCoche(String modelo) throws SQLException{
-        
-        String sql = "INSERT INTO modelos(modelo) values('"+modelo+"');";
-        Statement st;
-        st=conexion.createStatement();
-        st.executeUpdate(sql);
-    }    
-    
-    
-    /*Esta funcion es mas precisa que la anterior, 
-    se utiliza para importar las poblaciones*/
+
+
     
     public void importarCochePS(int id,String modelo,float con,float emi,String cla) throws SQLException{
     	
@@ -177,10 +167,10 @@ public class GestorBBDDcoches extends GestorBBDD{
     }
     
     
-    public int getIdModelo(String modelo) throws SQLException{
+    public void getIdModelo(String modelo) throws SQLException, ClassNotFoundException{
     	
     	
-    	
+    	establecerConexion();
     	
     	Statement st = conexion.createStatement();
     	
@@ -188,12 +178,19 @@ public class GestorBBDDcoches extends GestorBBDD{
 		
     	rs.next();
     	
-    	String idSt = rs.getObject(1).toString();
+    	String idSt = rs.getObject("id").toString();
     	
     	idModelo = Integer.parseInt(idSt);
     	
-
-    	return idModelo;
+    	cerrarConexion();
+    	
+    }
+    
+    public void mostrarId(){
+    	
+    	
+    	System.out.println("id: " + idModelo);
+    	
     }
     
     public void borrarCoche() throws SQLException{
@@ -202,8 +199,6 @@ public class GestorBBDDcoches extends GestorBBDD{
     	Statement st = conexion.createStatement();
     	
     	ResultSet rs = st.executeQuery("delete * from modelos where id = "+ idModelo + ";");
-    	
-    	
     	
     	
     	
