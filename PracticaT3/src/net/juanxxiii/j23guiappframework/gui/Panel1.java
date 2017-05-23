@@ -61,7 +61,7 @@ public class Panel1 extends JPanel {
 	private JTable table;
 	private String nModelo;
 	
-	public Panel1() {	 
+	public Panel1() throws SQLException {	 
 		
 		setBackground(SystemColor.info);
 		setLayout(new BorderLayout(0, 0));
@@ -172,6 +172,7 @@ public class Panel1 extends JPanel {
 			
 					coches.clear();
 					
+
 					gc.getConsumo(slider.getValue());
 					gc.getMarca(combo.getSelectedItem().toString());			
 					
@@ -182,6 +183,7 @@ public class Panel1 extends JPanel {
 						e1.printStackTrace();
 					}
 				
+					//coches.add(new Coche("nuevo", "marca", (float)180.0,(float)18.0));
 					TableModelCoches tmc = new TableModelCoches(coches);
 					table.setModel(tmc);
 

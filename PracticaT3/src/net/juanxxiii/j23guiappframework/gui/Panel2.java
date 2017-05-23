@@ -163,8 +163,14 @@ public class Panel2 extends JPanel {
 		
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
 				
+				int dialogResultado = JOptionPane.showConfirmDialog(null, "¿?",
+						"Confirmacion", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+				
+				
+				if(dialogResultado == JOptionPane.YES_OPTION){
 				try {
 
 					
@@ -205,6 +211,9 @@ public class Panel2 extends JPanel {
 				
 		
 			}
+
+				}
+			
 
 				
 				

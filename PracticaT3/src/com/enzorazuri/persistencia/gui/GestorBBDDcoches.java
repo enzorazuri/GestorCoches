@@ -33,7 +33,16 @@ public class GestorBBDDcoches extends GestorBBDD{
         super(usr, pwd, ip, bbddName);
     }
     
+  
     
+    /**
+     * 
+     * RECOGE LOS COCHES QUE SE ENCUENTRAN EN LA CONSULTA Y LOS METE EN EL ARRAY
+     * 
+     * @param coches
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public void getCoches(ArrayList <Coche> coches) throws ClassNotFoundException, SQLException{
     
 
@@ -41,7 +50,8 @@ public class GestorBBDDcoches extends GestorBBDD{
     	String sql = 
     			"select mar.MARCA, mo.MODELO, mo.CONSUMO, mo.EMISIONES "
     			+ "from marcas mar, modelos mo where mar.id=mo.ID_MARCA "
-    			+ "and lower(marca) like'"+ marca + "' and consumo<"+ consumo + ";";
+    			+ "and lower(marca) like'"+ marca + "' and consumo<="
+    					+ ""+ consumo + ";";
     	establecerConexion();
     	Statement st = conexion.createStatement();
     	ResultSet rs = st.executeQuery(sql);
@@ -51,7 +61,7 @@ public class GestorBBDDcoches extends GestorBBDD{
     		
     		System.out.println(rs.getString("Modelo"));
     		
-    		
+    	
     		
     	}
     	cerrarConexion();
@@ -59,7 +69,17 @@ public class GestorBBDDcoches extends GestorBBDD{
     
 
 
-    
+    /**
+     * 
+     * IMPORTA EL MODELO HACIA LA TABLA DE MODELOS CON SUS RESPECTIVOS CAMPOS
+     * 
+     * @param id: ID DE LA MARCA
+     * @param modelo: NOMBRE DEL MODELO 
+     * @param con: CONSUMO 
+     * @param emi: EMISIONES
+     * @param cla: CLASIFICACION
+     * @throws SQLException
+     */
     public void importarCochePS(int id,String modelo,float con,float emi,String cla) throws SQLException{
     	
     	
@@ -80,7 +100,10 @@ public class GestorBBDDcoches extends GestorBBDD{
     }
     
     
-    
+    /**
+     * 
+     * @param combo RECOGE TODAS LAS MARCAS Y LAS METE EN EL JCOMBOBOX
+     */
     public void comboMarcas(JComboBox combo){
     	
     	
@@ -106,8 +129,8 @@ public class GestorBBDDcoches extends GestorBBDD{
     
     
     /**
-     * 
-     * @param boxMarca OBTIENE LA MARCA SELECCIONADA EN EL JCOMBOBOX
+     * OBTIENE LA MARCA SELECCIONADA EN EL JCOMBOBOX
+     * @param boxMarca 
      */
     public void getMarca (String boxMarca){
     	
@@ -116,15 +139,17 @@ public class GestorBBDDcoches extends GestorBBDD{
     }
     
     
+    /**
+     * OBTIENE EL CONSUMO MARCADO EN EL SLIDER
+     * @param sliderConsumo  
+     */
     public void getConsumo (int sliderConsumo){
     	consumo = sliderConsumo;
     }
     
 
     /**
-     * 
      * @return DEVUELVE EL ID DE LA MARCA SELECCIONADA EN EL COMBO DEL FORMULARIO
-     * 
      * @throws SQLException
      */
     public int setId() throws SQLException{
@@ -206,8 +231,26 @@ public class GestorBBDDcoches extends GestorBBDD{
     
     
 
-    
-    
+    /* TERMINAR : MULTIPLICAR POR 10 PARA OBTENER EL ENTERO
+    public int consumoMax() throws SQLException{
+    	
+    	float consMaxFlo;
+    	int consMax;
+    	
+    	Statement st = conexion.createStatement();
+
+		ResultSet rs = st.executeQuery("select max(consumo) from modelos");
+		
+		rs.next();
+		
+		consMaxFlo = rs.getFloat(1);
+	
+    	consMax = (int) (consMaxFlo * 10);
+		
+    	return consMax;    
+   
+    	
+    }*/
 
 	
     

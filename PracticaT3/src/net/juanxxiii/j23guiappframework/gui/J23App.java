@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import java.awt.Container;
@@ -53,8 +54,9 @@ public class J23App extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
 	 */
-	public J23App() {
+	public J23App() throws SQLException {
 		
 		getContentPane().setLayout(new CardLayout(0, 0));
 		setTitle("Gestion de Vehiculos");
