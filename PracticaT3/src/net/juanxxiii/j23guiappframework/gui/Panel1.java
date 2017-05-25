@@ -87,7 +87,9 @@ public class Panel1 extends JPanel {
 		
 		//COMBO CON LAS MARCAS
 		JComboBox combo = new JComboBox();
+		combo.setToolTipText("");
 		combo.setBounds(324, 150, 85, 20);
+		combo.addItem("Todas las marcas");
 		gc.comboMarcas(combo);
 		
 		
@@ -121,16 +123,16 @@ public class Panel1 extends JPanel {
 		gl_Filtros.setHorizontalGroup(
 			gl_Filtros.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_Filtros.createSequentialGroup()
-					.addGap(51)
+					.addGap(52)
 					.addComponent(lblMarca)
 					.addGap(18)
-					.addComponent(combo, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
-					.addGap(36)
+					.addComponent(combo, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
 					.addComponent(lblConsumo, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
 					.addGap(2)
 					.addComponent(consumoSl, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(slider, GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+					.addComponent(slider, GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
 					.addGap(14))
 		);
 		gl_Filtros.setVerticalGroup(
@@ -183,7 +185,6 @@ public class Panel1 extends JPanel {
 						e1.printStackTrace();
 					}
 				
-					//coches.add(new Coche("nuevo", "marca", (float)180.0,(float)18.0));
 					TableModelCoches tmc = new TableModelCoches(coches);
 					table.setModel(tmc);
 
@@ -205,11 +206,10 @@ public class Panel1 extends JPanel {
 		botonEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-					
+
 					int pulsado = table.getSelectedRow();
 					
 					nModelo = coches.get(pulsado).getnModelo();
-					int id;
 					
 					try {
 						gc.getIdModelo(nModelo);
@@ -220,14 +220,30 @@ public class Panel1 extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-
-
 					
 					
-					gc.mostrarId();
-					JOptionPane.showMessageDialog(null, "Has pulsado: " + nModelo);
+					
+					int dialogResultado = JOptionPane.showConfirmDialog(null, "¿Esta seguro de que desea eliminar este modelo?",
+							"Confirmacion", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 					
 					
+					if(dialogResultado==JOptionPane.YES_OPTION){	
+						
+					try {
+						gc.borrarCoche();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					JOptionPane.showMessageDialog(null, "La operacion se ha realizado con exito.", "", JOptionPane.INFORMATION_MESSAGE);
+					
+					}		
+						
+									
 
 				
 				

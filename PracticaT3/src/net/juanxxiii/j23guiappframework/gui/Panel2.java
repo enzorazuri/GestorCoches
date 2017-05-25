@@ -166,7 +166,7 @@ public class Panel2 extends JPanel {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				
-				int dialogResultado = JOptionPane.showConfirmDialog(null, "¿?",
+				int dialogResultado = JOptionPane.showConfirmDialog(null, "¿Quiere guardar el siguiente modelo?",
 						"Confirmacion", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 				
 				

@@ -28,6 +28,7 @@ public class GestorBBDDcoches extends GestorBBDD{
 	String marca = "";
 	int consumo;
     int idModelo;
+    String todas =  "Todas las marcas";
     
     public GestorBBDDcoches(String usr, String pwd, String ip, String bbddName) {
         super(usr, pwd, ip, bbddName);
@@ -45,26 +46,47 @@ public class GestorBBDDcoches extends GestorBBDD{
      */
     public void getCoches(ArrayList <Coche> coches) throws ClassNotFoundException, SQLException{
     
-
-    	
-    	String sql = 
-    			"select mar.MARCA, mo.MODELO, mo.CONSUMO, mo.EMISIONES "
-    			+ "from marcas mar, modelos mo where mar.id=mo.ID_MARCA "
-    			+ "and lower(marca) like'"+ marca + "' and consumo<="
-    					+ ""+ consumo + ";";
-    	establecerConexion();
-    	Statement st = conexion.createStatement();
-    	ResultSet rs = st.executeQuery(sql);
-    	while(rs.next()==true){
+    	if(marca.equals(todas)==true){
     		
-    		coches.add(new Coche(rs.getString("modelo"), rs.getString("marca"), rs.getFloat("consumo"), rs.getFloat("emisiones")));
+        	String sql = 
+        			"select mar.*, mo.MODELO, mo.CONSUMO, mo.EMISIONES "
+        			+ "from marcas mar, modelos mo where mar.id=mo.ID_MARCA "
+        			+ "and consumo<=" + consumo + ";";
+        	establecerConexion();
+        	Statement st = conexion.createStatement();
+        	ResultSet rs = st.executeQuery(sql);
+        	while(rs.next()==true){
+        		
+        		coches.add(new Coche(rs.getString("modelo"), rs.getString("marca"), rs.getFloat("consumo"), rs.getFloat("emisiones")));
+        		
+        		System.out.println(rs.getString("Modelo"));
+        		
+        	
+        		
+        	}
+        	
+        	cerrarConexion();
     		
-    		System.out.println(rs.getString("Modelo"));
-    		
-    	
-    		
-    	}
-    	cerrarConexion();
+    	}else{
+	    	
+	    	String sql = 
+	    			"select mar.MARCA, mo.MODELO, mo.CONSUMO, mo.EMISIONES "
+	    			+ "from marcas mar, modelos mo where mar.id=mo.ID_MARCA "
+	    			+ "and lower(marca) like'"+ marca + "' and consumo<="
+	    					+ ""+ consumo + ";";
+	    	establecerConexion();
+	    	Statement st = conexion.createStatement();
+	    	ResultSet rs = st.executeQuery(sql);
+	    	while(rs.next()==true){
+	    		
+	    		coches.add(new Coche(rs.getString("modelo"), rs.getString("marca"), rs.getFloat("consumo"), rs.getFloat("emisiones")));
+	    		
+	    		System.out.println(rs.getString("Modelo"));
+	    		
+	    	
+	    		
+	    	}
+	    	cerrarConexion();}
     }
     
 
@@ -191,7 +213,13 @@ public class GestorBBDDcoches extends GestorBBDD{
     	
     }
     
-    
+    /**
+     * OBTIENE EL ID DEL MODELO SELECCIONADO
+     * 
+     * @param modelo
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public void getIdModelo(String modelo) throws SQLException, ClassNotFoundException{
     	
     	
@@ -218,14 +246,15 @@ public class GestorBBDDcoches extends GestorBBDD{
     	
     }
     
-    public void borrarCoche() throws SQLException{
+    public void borrarCoche() throws SQLException, ClassNotFoundException{
     	
+    	establecerConexion();
     	
     	Statement st = conexion.createStatement();
     	
     	ResultSet rs = st.executeQuery("delete * from modelos where id = "+ idModelo + ";");
     	
-    	
+    	cerrarConexion();
     	
     }
     
