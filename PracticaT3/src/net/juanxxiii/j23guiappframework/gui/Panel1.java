@@ -5,6 +5,7 @@ import java.awt.SystemColor;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -46,6 +47,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.SwingConstants;
+import javax.swing.ListSelectionModel;
 
 
 public class Panel1 extends JPanel {
@@ -103,20 +105,30 @@ public class Panel1 extends JPanel {
 		
 		//SLIDER DEL CONSUMO MAXIMO
 		JSlider slider = new JSlider();
+		
+		
 		slider.setValue(10);
+		
+
+		
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 			
-				consumoSl.setText(""+slider.getValue());
+				//convierte a float el entero para obtener los decimales
+				consumoSl.setText(""+(float)slider.getValue()/10);
 				
 			}
 		});
 		slider.setBorder(new LineBorder(new Color(0, 0, 0)));
 		slider.setPaintLabels(true);
 		slider.setPaintTicks(true);
-		slider.setMajorTickSpacing(5);
-		slider.setMaximum(25);
-		
+	
+		try {
+			slider.setMaximum(gc.consumoMax());
+		} catch (ClassNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 		
 		GroupLayout gl_Filtros = new GroupLayout(Filtros);
@@ -162,6 +174,7 @@ public class Panel1 extends JPanel {
 		panelPrincipal.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 		
 
@@ -188,10 +201,6 @@ public class Panel1 extends JPanel {
 					TableModelCoches tmc = new TableModelCoches(coches);
 					table.setModel(tmc);
 
-					
-				
-				
-				
 
 			}
 		});

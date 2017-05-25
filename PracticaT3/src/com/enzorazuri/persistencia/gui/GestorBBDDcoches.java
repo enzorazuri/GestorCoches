@@ -26,7 +26,7 @@ import net.juanxxiii.j23guiappframework.gui.Coche;
 public class GestorBBDDcoches extends GestorBBDD{
 	
 	String marca = "";
-	int consumo;
+	float consumo;
     int idModelo;
     String todas =  "Todas las marcas";
     
@@ -166,7 +166,8 @@ public class GestorBBDDcoches extends GestorBBDD{
      * @param sliderConsumo  
      */
     public void getConsumo (int sliderConsumo){
-    	consumo = sliderConsumo;
+    	
+    	consumo = (float)sliderConsumo/10;
     }
     
 
@@ -252,7 +253,7 @@ public class GestorBBDDcoches extends GestorBBDD{
     	
     	Statement st = conexion.createStatement();
     	
-    	ResultSet rs = st.executeQuery("delete * from modelos where id = "+ idModelo + ";");
+    	st.execute("delete from modelos where id = "+ idModelo + ";");
     	
     	cerrarConexion();
     	
@@ -260,9 +261,10 @@ public class GestorBBDDcoches extends GestorBBDD{
     
     
 
-    /* TERMINAR : MULTIPLICAR POR 10 PARA OBTENER EL ENTERO
-    public int consumoMax() throws SQLException{
+    //TERMINAR : MULTIPLICAR POR 10 PARA OBTENER EL ENTERO
+    public int consumoMax() throws SQLException, ClassNotFoundException{
     	
+    	establecerConexion();
     	float consMaxFlo;
     	int consMax;
     	
@@ -276,10 +278,12 @@ public class GestorBBDDcoches extends GestorBBDD{
 	
     	consMax = (int) (consMaxFlo * 10);
 		
-    	return consMax;    
-   
+    	cerrarConexion();
     	
-    }*/
+    	return consMax;
+    	
+    	
+    }
 
 	
     
