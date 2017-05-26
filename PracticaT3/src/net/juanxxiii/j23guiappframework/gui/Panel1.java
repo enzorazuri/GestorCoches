@@ -62,6 +62,8 @@ public class Panel1 extends JPanel {
 	GestorBBDDcoches gc = new GestorBBDDcoches("root", "", "127.0.0.1", "bbdd_gestmotor");
 	private JTable table;
 	private String nModelo;
+
+	
 	
 	public Panel1() throws SQLException {	 
 		
@@ -84,7 +86,7 @@ public class Panel1 extends JPanel {
 		panelPrincipal.add(Filtros, BorderLayout.NORTH);
 		
 		JLabel lblMarca = new JLabel("Marca");
-		lblMarca.setFont(new Font("Verdana", Font.BOLD, 15));
+		lblMarca.setFont(new Font("Verdana", Font.BOLD, 13));
 		
 		
 		//COMBO CON LAS MARCAS
@@ -95,16 +97,18 @@ public class Panel1 extends JPanel {
 		gc.comboMarcas(combo);
 		
 		
-		JLabel lblConsumo = new JLabel("Consumo Max\r\n");
+		JLabel lblConsumo = new JLabel("Consumo Max\r\n:");
 		lblConsumo.setFont(new Font("Verdana", Font.BOLD, 13));
 		
 		JLabel consumoSl = new JLabel("");
+		consumoSl.setBackground(Color.WHITE);
+		consumoSl.setFont(new Font("Verdana", Font.BOLD, 13));
 		consumoSl.setHorizontalAlignment(SwingConstants.CENTER);
 		consumoSl.setLabelFor(consumoSl);
-		consumoSl.setBorder(new LineBorder(new Color(0, 0, 0)));
 		
 		//SLIDER DEL CONSUMO MAXIMO
 		JSlider slider = new JSlider();
+		slider.setBackground(new Color(255, 240, 245));
 		
 		
 		slider.setValue(10);
@@ -119,7 +123,6 @@ public class Panel1 extends JPanel {
 				
 			}
 		});
-		slider.setBorder(new LineBorder(new Color(0, 0, 0)));
 		slider.setPaintLabels(true);
 		slider.setPaintTicks(true);
 	
@@ -130,49 +133,74 @@ public class Panel1 extends JPanel {
 			e2.printStackTrace();
 		}
 		
+		JLabel minimoSl = new JLabel("");
+		minimoSl.setHorizontalAlignment(SwingConstants.CENTER);
+		minimoSl.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		minimoSl.setText(""+(float)slider.getMinimum()/10);
+		
+		
+		
+		JLabel maximoSl = new JLabel("");
+		maximoSl.setHorizontalAlignment(SwingConstants.CENTER);
+		maximoSl.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		maximoSl.setText(""+(float)slider.getMaximum()/10);
+		
 		
 		GroupLayout gl_Filtros = new GroupLayout(Filtros);
 		gl_Filtros.setHorizontalGroup(
 			gl_Filtros.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_Filtros.createSequentialGroup()
-					.addGap(52)
-					.addComponent(lblMarca)
-					.addGap(18)
-					.addComponent(combo, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
+					.addGroup(gl_Filtros.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_Filtros.createSequentialGroup()
+							.addGap(94)
+							.addComponent(lblMarca))
+						.addGroup(gl_Filtros.createSequentialGroup()
+							.addGap(60)
+							.addComponent(combo, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
 					.addComponent(lblConsumo, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-					.addGap(2)
-					.addComponent(consumoSl, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(slider, GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
-					.addGap(14))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(consumoSl, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+					.addGap(57)
+					.addGroup(gl_Filtros.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(slider, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_Filtros.createSequentialGroup()
+							.addComponent(minimoSl, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(maximoSl, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		gl_Filtros.setVerticalGroup(
 			gl_Filtros.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_Filtros.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(12, Short.MAX_VALUE))
+					.addComponent(lblMarca)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(combo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(14, Short.MAX_VALUE))
 				.addGroup(gl_Filtros.createSequentialGroup()
-					.addContainerGap()
+					.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_Filtros.createParallelGroup(Alignment.BASELINE)
+						.addComponent(minimoSl)
+						.addComponent(maximoSl))
+					.addContainerGap(20, Short.MAX_VALUE))
+				.addGroup(gl_Filtros.createSequentialGroup()
+					.addContainerGap(24, Short.MAX_VALUE)
 					.addGroup(gl_Filtros.createParallelGroup(Alignment.LEADING)
-						.addComponent(consumoSl, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_Filtros.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblConsumo)
-							.addComponent(combo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblMarca)))
-					.addGap(26))
+						.addComponent(consumoSl, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblConsumo, Alignment.TRAILING))
+					.addGap(30))
 		);
 		Filtros.setLayout(gl_Filtros);
 		
 		
-		ArrayList<Coche> coches = new ArrayList();
-		
-		
 		
 		JScrollPane scrollPane = new JScrollPane();
-		panelPrincipal.add(scrollPane, BorderLayout.CENTER);
+		panelPrincipal.add(scrollPane, BorderLayout.CENTER);//AGREGA EL SCROLLPANEL AL PANEL  
 		
+		
+		ArrayList<Coche> coches = new ArrayList();
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
@@ -230,7 +258,7 @@ public class Panel1 extends JPanel {
 						e1.printStackTrace();
 					}
 					
-					
+				
 					
 					int dialogResultado = JOptionPane.showConfirmDialog(null, "¿Esta seguro de que desea eliminar este modelo?",
 							"Confirmacion", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
@@ -250,6 +278,21 @@ public class Panel1 extends JPanel {
 					
 					JOptionPane.showMessageDialog(null, "La operacion se ha realizado con exito.", "", JOptionPane.INFORMATION_MESSAGE);
 					
+					coches.clear();
+					
+
+					gc.getConsumo(slider.getValue());
+					gc.getMarca(combo.getSelectedItem().toString());			
+					
+					try {
+						gc.getCoches(coches);
+					} catch (ClassNotFoundException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				
+					TableModelCoches tmc = new TableModelCoches(coches);
+					table.setModel(tmc);
 					}		
 						
 									

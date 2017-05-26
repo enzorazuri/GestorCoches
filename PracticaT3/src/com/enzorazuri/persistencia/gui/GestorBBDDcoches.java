@@ -284,6 +284,30 @@ public class GestorBBDDcoches extends GestorBBDD{
     	
     	
     }
+    
+    
+    public void comboClasificacion(JComboBox combo){
+    	
+    	
+    	
+    	try {
+    		GestorBBDD gestor = new GestorBBDD("root", "", "127.0.0.1", "bbdd_gestmotor");
+			gestor.establecerConexion();
+			Statement stat = (Statement) gestor.conexion.createStatement();
+			ResultSet resultado = stat.executeQuery("SELECT c_energetica from eficiencias");
+			while(resultado.next()){
+				combo.addItem(resultado.getObject("c_energetica"));
+			}
+				
+			gestor.cerrarConexion();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+   
+    }
 
 	
     

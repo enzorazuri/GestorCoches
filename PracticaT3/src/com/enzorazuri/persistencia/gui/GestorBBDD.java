@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.mysql.jdbc.PreparedStatement;
+
 /**
  *
  * @author dam1b
@@ -42,18 +44,20 @@ public class GestorBBDD {
     
     public void establecerConexion() throws ClassNotFoundException, SQLException{
     
+
+    PreparedStatement st = null;
     String driver="com.mysql.jdbc.Driver";
     Class.forName(driver);
     String servidor="jdbc:mysql://"+ip+"/"+bbddName;
     String user=usr;
     String pass=pwd;
     conexion=DriverManager.getConnection(servidor,user,pass);
+
     }
     
+    
     public void cerrarConexion() throws SQLException{
-        
         conexion.close();
-        
     }
     
 }

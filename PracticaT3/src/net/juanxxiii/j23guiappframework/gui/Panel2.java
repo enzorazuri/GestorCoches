@@ -53,7 +53,6 @@ import com.enzorazuri.persistencia.*;
 public class Panel2 extends JPanel {
 	private JTextField modeloJt;
 	private JTextField consumoJt;
-	private JTextField clasificacionJt;
 	private JTextField emisionesJt;
 	
 	private float consumo;
@@ -115,11 +114,6 @@ public class Panel2 extends JPanel {
 		clasificacionJL.setBounds(178, 301, 121, 36);
 		panelDatos.add(clasificacionJL);
 		
-		clasificacionJt = new JTextField();
-		clasificacionJt.setColumns(10);
-		clasificacionJt.setBounds(326, 309, 26, 20);
-		panelDatos.add(clasificacionJt);
-		
 		
 		
 		/*EMISIONES*/
@@ -161,6 +155,14 @@ public class Panel2 extends JPanel {
 		lblAgregar.setBounds(218, 11, 191, 61);
 		panelDatos.add(lblAgregar);
 		
+		//CLASIFICACION - LISTA
+		JComboBox comboClas = new JComboBox();
+		comboClas.setBounds(326, 312, 33, 20);
+		panelDatos.add(comboClas);
+		gc.comboClasificacion(comboClas);
+		
+		
+		/*BOTON DE GUARDAR*/
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			
@@ -174,7 +176,7 @@ public class Panel2 extends JPanel {
 				try {
 
 					
-					if(gc.vacio(modeloJt,emisionesJt,clasificacionJt,consumoJt) == true){
+					if(gc.vacio(modeloJt,emisionesJt,consumoJt) == true){
 						JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.", "ERROR", JOptionPane.WARNING_MESSAGE);
 					}
 					
@@ -187,7 +189,6 @@ public class Panel2 extends JPanel {
 					id = gc.setId();
 					modelo = modeloJt.getText();//Pasar JTextField a String
 					emisiones = Float.parseFloat(emisionesJt.getText());//Pasa a float un JTextField					
-					clas = clasificacionJt.getText();
 					consumo = Float.parseFloat(consumoJt.getText());
 					
 

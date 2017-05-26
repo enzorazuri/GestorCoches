@@ -111,13 +111,14 @@ public class J23App extends JFrame {
 				CardLayout cl = (CardLayout)contentPane.getLayout();
 				cl.show(contentPane, "Portada");
 			}
-		});
+		});		
+		
+		
+		/*PORTADA DE INICIO EN MENU*/
 		mnPanel.add(mntmInicio);
 		mnPanel.add(mntmPanel_1);
 		
-		/*PORTADA DE INICIO EN MENU*/
-		
-		
+
 		/*AGREGAR EN MENU*/
 		JMenuItem mntmAgregar = new JMenuItem("AGREGAR");
 		mntmAgregar.addActionListener(new ActionListener() {
@@ -181,6 +182,8 @@ public class J23App extends JFrame {
 				
 			}
 		});
+		
+		/*ASIGNANDO FUNCION AL BOTON DE AGREGAR*/
 		JButton btnNewButton_1 = new JButton("AGREGAR");
 		btnNewButton_1.setForeground(new Color(128, 0, 0));
 		btnNewButton_1.setBackground(new Color(160, 82, 45));
@@ -197,7 +200,7 @@ public class J23App extends JFrame {
 		btnNewButton.setBounds(312, 308, 150, 29);
 		portada.add(btnNewButton);
 		
-		/*ASIGNANDO FUNCION AL BOTON DE AGREGAR*/
+		
 		
 		
 	}
