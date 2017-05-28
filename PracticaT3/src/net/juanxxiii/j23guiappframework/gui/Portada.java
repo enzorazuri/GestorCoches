@@ -6,6 +6,12 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
@@ -23,7 +29,9 @@ public class Portada extends JPanel {
 	 * */
 	
 	public Portada() {
-
+		
+		setLayout(null);
+		
 		fondo = this.getClass().getResource("/assets/fondo/ferrari.jpg");
 		imagen = new ImageIcon(fondo).getImage();
 		
@@ -41,5 +49,4 @@ public class Portada extends JPanel {
 	public void paintComponent (Graphics g){
 		g.drawImage(imagen, 0,0,getWidth(),getHeight(),null);
 	}
-
 }

@@ -50,6 +50,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import com.enzorazuri.persistencia.*;
 
+/**
+ * 
+ * CLASE PARA AGREGAR UN MODELO A TABLA DE MODELOS DE LA BASE DE DATOS
+ * 
+ * @author Enzo Razuri
+ *
+ */
 public class Panel2 extends JPanel {
 	private JTextField modeloJt;
 	private JTextField consumoJt;
@@ -60,27 +67,34 @@ public class Panel2 extends JPanel {
 	private String clas;
 	private String modelo;
 	private int id;
-	GestorBBDDcoches gc = new GestorBBDDcoches("root", "", "127.0.0.1", "bbdd_gestmotor");
+
 	
 	/**
 	 * Create the panel.
 	 */
 	public Panel2() {
-
+		
+		
+		
+		try{
+			
+		
 		
 		setBackground(SystemColor.inactiveCaption);
 		setLayout(new BorderLayout(0, 0));
 		
+		/*BARRA ARRIBA - TOOLBAR*/
 		JToolBar toolBar = new JToolBar();
 		add(toolBar, BorderLayout.NORTH);
 		
+		/*JPANEL DONDE VAN LOS DATOS*/
 		JPanel panelDatos = new JPanel();
 		panelDatos.setBackground(new Color(255, 240, 245));
 		add(panelDatos, BorderLayout.CENTER);
 		panelDatos.setLayout(null);
 		
 		
-		/*MODELO*/
+		/*JLABEL MODELO*/
 		JLabel modeloJL = new JLabel("Modelo");
 		modeloJL.setForeground(new Color(0, 0, 0));
 		modeloJL.setHorizontalAlignment(SwingConstants.CENTER);
@@ -94,13 +108,14 @@ public class Panel2 extends JPanel {
 		modeloJt.setColumns(10);
 		
 		
-		/*CONSUMO*/
+		/*JLABEL CONSUMO*/
 		JLabel consumoJL = new JLabel("Consumo");
 		consumoJL.setHorizontalAlignment(SwingConstants.CENTER);
 		consumoJL.setFont(new Font("Verdana", Font.BOLD, 17));
 		consumoJL.setBounds(178, 189, 121, 36);
 		panelDatos.add(consumoJL);
 		
+		/*JTEXTFIELD  CONSUMO*/
 		consumoJt = new JTextField();
 		consumoJt.setColumns(10);
 		consumoJt.setBounds(326, 197, 56, 20);
@@ -116,14 +131,14 @@ public class Panel2 extends JPanel {
 		
 		
 		
-		/*EMISIONES*/
+		/*JLABEL EMISIONES*/
 		JLabel emisionesJL = new JLabel("Emisiones");
 		emisionesJL.setFont(new Font("Verdana", Font.BOLD, 17));
 		emisionesJL.setHorizontalAlignment(SwingConstants.CENTER);
 		emisionesJL.setBounds(178, 247, 111, 36);
 		panelDatos.add(emisionesJL);
 		
-	
+		/*JTEXTFIELD EMISIONES*/
 		emisionesJt = new JTextField();
 		emisionesJt.setColumns(10);
 		emisionesJt.setBounds(326, 255, 56, 20);
@@ -140,6 +155,7 @@ public class Panel2 extends JPanel {
 		
 		
 		/*MARCAS - Lista*/
+		GestorBBDDcoches gc = new GestorBBDDcoches("root", "", "127.0.0.1", "bbdd_gestmotor");	
 		JComboBox combo = new JComboBox();
 		combo.setBounds(324, 150, 85, 20);
 		panelDatos.add(combo);
@@ -172,14 +188,9 @@ public class Panel2 extends JPanel {
 						"Confirmacion", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 				
 				
-				if(dialogResultado == JOptionPane.YES_OPTION){
-				try {
-
-					
-					if(gc.vacio(modeloJt,emisionesJt,consumoJt) == true){
-						JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.", "ERROR", JOptionPane.WARNING_MESSAGE);
-					}
-					
+				if(dialogResultado == JOptionPane.YES_OPTION ){
+					if( gc.vacio(modeloJt,emisionesJt,consumoJt) != true){
+					try {		
 				
 					
 					gc.establecerConexion();		
@@ -190,7 +201,7 @@ public class Panel2 extends JPanel {
 					modelo = modeloJt.getText();//Pasar JTextField a String
 					emisiones = Float.parseFloat(emisionesJt.getText());//Pasa a float un JTextField					
 					consumo = Float.parseFloat(consumoJt.getText());
-					
+					clas = comboClas.getSelectedItem().toString();
 
 					gc.importarCochePS(id, modelo, consumo, emisiones, clas);
 					
@@ -207,10 +218,14 @@ public class Panel2 extends JPanel {
 					e.printStackTrace();
 				}
 				catch(NumberFormatException e){
-					System.out.println("Los campos no pueden quedar vacios");
+					JOptionPane.showMessageDialog(null, "Los campos no pueden quedar vacios o tener informacion erronea", "ERROR", JOptionPane.WARNING_MESSAGE);	
 				}
 				
-		
+			
+					
+				}else{
+					JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacios.", "ERROR", JOptionPane.WARNING_MESSAGE);	
+				}
 			}
 
 				}
@@ -223,6 +238,9 @@ public class Panel2 extends JPanel {
 		button.setIcon(new ImageIcon(Panel2.class.getResource("/assets/iconsapp/Save-as-icon.png")));
 		toolBar.add(button);
 		
+		}catch(Exception e){
+		}
+			
 		
 
 	}

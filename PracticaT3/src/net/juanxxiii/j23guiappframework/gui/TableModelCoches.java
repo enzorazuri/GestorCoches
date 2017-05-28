@@ -6,7 +6,11 @@ import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-
+/**
+ * 
+ * @author Enzo Razuri
+ *
+ */
 public class TableModelCoches implements TableModel{
 
 	public ArrayList<Coche> coches;
@@ -20,7 +24,10 @@ public class TableModelCoches implements TableModel{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * DEVUELVE EL PARAMETRO SEGUN EL ENTERO QUE SE LE PASE
+	 */
 	@Override
 	public Class<?> getColumnClass(int arg0) {
 		// TODO Auto-generated method stub
@@ -80,7 +87,9 @@ public class TableModelCoches implements TableModel{
 	}
 
 
-	
+	/**
+	 * DEVUELVE EL VALOR DEL PARAMETRO PASANDOLE LA FILA Y COLUMNA QUE DESEE EL USUARIO
+	 */
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub

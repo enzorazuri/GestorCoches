@@ -44,7 +44,7 @@ public class GestorBBDD {
     
     public void establecerConexion() throws ClassNotFoundException, SQLException{
     
-
+    try{
     PreparedStatement st = null;
     String driver="com.mysql.jdbc.Driver";
     Class.forName(driver);
@@ -52,7 +52,9 @@ public class GestorBBDD {
     String user=usr;
     String pass=pwd;
     conexion=DriverManager.getConnection(servidor,user,pass);
-
+    }catch(Exception e){
+    	System.out.println("Base de datos apagada.");
+    }
     }
     
     

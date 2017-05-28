@@ -98,14 +98,14 @@ public class J23App extends JFrame {
 		
 		
 		/*PANEL1 EN MENU*/
-		JMenuItem mntmPanel_1 = new JMenuItem("CONSULTAR");
+		JMenuItem mntmPanel_1 = new JMenuItem("Consultar");
 		mntmPanel_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout)contentPane.getLayout();
 				cl.show(contentPane, "Pantalla1");
 			}
 		});
-		JMenuItem mntmInicio = new JMenuItem("INICIO");
+		JMenuItem mntmInicio = new JMenuItem("Inicio");
 		mntmInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout)contentPane.getLayout();
@@ -119,8 +119,8 @@ public class J23App extends JFrame {
 		mnPanel.add(mntmPanel_1);
 		
 
-		/*AGREGAR EN MENU*/
-		JMenuItem mntmAgregar = new JMenuItem("AGREGAR");
+		/*AGREGAR MODELO EN MENU*/
+		JMenuItem mntmAgregar = new JMenuItem("Agregar modelo");
 		mntmAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout)contentPane.getLayout();
@@ -128,6 +128,16 @@ public class J23App extends JFrame {
 			}
 		});
 		mnPanel.add(mntmAgregar);		
+		
+		/*AGREGAR MARCA EN MENU*/
+		JMenuItem mntmAgregarMarca = new JMenuItem("Agregar marca");
+		mntmAgregarMarca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout cl = (CardLayout)contentPane.getLayout();
+				cl.show(contentPane, "Agregar Marca");
+			}
+		});
+		mnPanel.add(mntmAgregarMarca);
 		
 
 		
@@ -159,11 +169,12 @@ public class J23App extends JFrame {
 		Portada portada = new Portada();
 		Panel1 panel1 = new Panel1();
 		Panel2 panel2 = new Panel2();
+		AgregarMarca am = new AgregarMarca();
 		
 		contentPane.add(portada,"Portada");
 		contentPane.add(panel1,"Pantalla1");
 		contentPane.add(panel2, "Pantalla2");
-		
+		contentPane.add(am, "Agregar Marca");
 		
 		portada.setLayout(null);
 		
@@ -184,7 +195,7 @@ public class J23App extends JFrame {
 		});
 		
 		/*ASIGNANDO FUNCION AL BOTON DE AGREGAR*/
-		JButton btnNewButton_1 = new JButton("AGREGAR");
+		JButton btnNewButton_1 = new JButton("AGREGAR MODELO");
 		btnNewButton_1.setForeground(new Color(128, 0, 0));
 		btnNewButton_1.setBackground(new Color(160, 82, 45));
 		btnNewButton_1.setFont(new Font("Eras Bold ITC", Font.PLAIN, 16));
@@ -195,13 +206,27 @@ public class J23App extends JFrame {
 				
 			}
 		});
-		btnNewButton_1.setBounds(160, 308, 117, 31);
+		btnNewButton_1.setBounds(205, 359, 195, 22);
 		portada.add(btnNewButton_1);
-		btnNewButton.setBounds(312, 308, 150, 29);
+		btnNewButton.setBounds(31, 359, 150, 22);
 		portada.add(btnNewButton);
 		
+		JButton btnNewButton_2 = new JButton("AGREGAR MARCA");
+		btnNewButton_2.setForeground(new Color(128, 0, 0));
+		btnNewButton_2.setBackground(new Color(160, 82, 45));
+		btnNewButton_2.setFont(new Font("Eras Bold ITC", Font.PLAIN, 16));
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout cl = (CardLayout)contentPane.getLayout();
+				cl.show(contentPane, "Agregar Marca");
+				
+				
+			}
+		});
+		btnNewButton_2.setBounds(422, 359, 183, 22);
+		portada.add(btnNewButton_2);
 		
+
 		
-		
-	}
+}
 }

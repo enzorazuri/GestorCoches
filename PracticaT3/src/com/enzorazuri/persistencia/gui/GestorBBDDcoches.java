@@ -29,6 +29,8 @@ public class GestorBBDDcoches extends GestorBBDD{
 	float consumo;
     int idModelo;
     String todas =  "Todas las marcas";
+    int num1 = 0;
+    int num2 = 5;
     
     public GestorBBDDcoches(String usr, String pwd, String ip, String bbddName) {
         super(usr, pwd, ip, bbddName);
@@ -51,7 +53,7 @@ public class GestorBBDDcoches extends GestorBBDD{
         	String sql = 
         			"select mar.*, mo.MODELO, mo.CONSUMO, mo.EMISIONES "
         			+ "from marcas mar, modelos mo where mar.id=mo.ID_MARCA "
-        			+ "and consumo<=" + consumo + ";";
+        			+ "and consumo<=" + consumo +  ";";
         	establecerConexion();
         	Statement st = conexion.createStatement();
         	ResultSet rs = st.executeQuery(sql);
@@ -73,7 +75,7 @@ public class GestorBBDDcoches extends GestorBBDD{
 	    			"select mar.MARCA, mo.MODELO, mo.CONSUMO, mo.EMISIONES "
 	    			+ "from marcas mar, modelos mo where mar.id=mo.ID_MARCA "
 	    			+ "and lower(marca) like'"+ marca + "' and consumo<="
-	    					+ ""+ consumo + ";";
+	    					+ ""+ consumo +";";
 	    	establecerConexion();
 	    	Statement st = conexion.createStatement();
 	    	ResultSet rs = st.executeQuery(sql);
@@ -143,7 +145,7 @@ public class GestorBBDDcoches extends GestorBBDD{
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("COMBOBOX");
 		}
     	
    
@@ -214,6 +216,9 @@ public class GestorBBDDcoches extends GestorBBDD{
     	
     }
     
+    
+    
+    
     /**
      * OBTIENE EL ID DEL MODELO SELECCIONADO
      * 
@@ -239,13 +244,14 @@ public class GestorBBDDcoches extends GestorBBDD{
     	cerrarConexion();
     	
     }
-    
-    public void mostrarId(){
-    	
-    	
-    	System.out.println("id: " + idModelo);
-    	
-    }
+
+    /**
+     * 
+     * BORRA UN COCHE APARTIR DE LA ID DEL MODELO QUE HA SELECCIONADO EL USUARIO
+     * 
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     
     public void borrarCoche() throws SQLException, ClassNotFoundException{
     	
@@ -261,7 +267,12 @@ public class GestorBBDDcoches extends GestorBBDD{
     
     
 
-    //TERMINAR : MULTIPLICAR POR 10 PARA OBTENER EL ENTERO
+    /**
+     * 
+     * @return DEVUELVE EL CONSUMO MAXIMO PASADO A ENTERO POR 10
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public int consumoMax() throws SQLException, ClassNotFoundException{
     	
     	establecerConexion();
@@ -286,6 +297,11 @@ public class GestorBBDDcoches extends GestorBBDD{
     }
     
     
+    /**
+     * INTRODUCE LAS CLASIFICACIONES EN EL COMBOBOX PASADO
+     * 
+     * @param combo JCOMBOBOX CREADO EN LA PANTALLA DE AGREGAR MODELO
+     */
     public void comboClasificacion(JComboBox combo){
     	
     	
@@ -308,8 +324,32 @@ public class GestorBBDDcoches extends GestorBBDD{
     	
    
     }
+    
+    
+    
 
-	
+    /**
+     * 
+     * INTRODUCE LA MARCA DESEADA EN LA TABLA DE MARCAS
+     * 
+     * @param marcaText JTEXTFIELD DE LA MARCA INTRODUCIDA POR EL USUARIO
+     * @throws SQLException
+     */
+    public void agregaMarca(String marcaText) throws SQLException {
+    	
+    
+        String sql= 
+        		"INSERT INTO marcas (marca) VALUES('"+ marcaText+"');";
+        PreparedStatement ps = conexion.prepareStatement(sql);
+
+        
+    	ps.executeUpdate();
+    	
+    	
+    	
+    }
+    
+    
     
     
     

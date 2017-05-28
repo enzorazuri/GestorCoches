@@ -49,10 +49,16 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.SwingConstants;
 import javax.swing.ListSelectionModel;
 
+/**
+ * 
+ * CLASE QUE SIRVE PARA ELIMINAR O BUSCAR MODELOS
+ * 
+ * @author Enzo Razuri
+ *
+ */
 
 public class Panel1 extends JPanel {
-	/*public Image imagen;
-	public URL fondo;/
+
 	
 	/**
 	 * Create the panel.
@@ -66,10 +72,11 @@ public class Panel1 extends JPanel {
 	
 	
 	public Panel1() throws SQLException {	 
-		
+		try{
 		setBackground(SystemColor.info);
 		setLayout(new BorderLayout(0, 0));
 		
+		//BARRA DONDE VAN EL BOTON DE BUSCAR Y ELIMINAR
 		JToolBar toolBar = new JToolBar();
 		add(toolBar, BorderLayout.NORTH);
 		
@@ -85,6 +92,7 @@ public class Panel1 extends JPanel {
 		Filtros.setBackground(new Color(255, 240, 245));
 		panelPrincipal.add(Filtros, BorderLayout.NORTH);
 		
+		//JLABEL DE LA MARCA
 		JLabel lblMarca = new JLabel("Marca");
 		lblMarca.setFont(new Font("Verdana", Font.BOLD, 13));
 		
@@ -97,9 +105,11 @@ public class Panel1 extends JPanel {
 		gc.comboMarcas(combo);
 		
 		
+		//JLABEL DEL CONSUMO 
 		JLabel lblConsumo = new JLabel("Consumo Max\r\n:");
 		lblConsumo.setFont(new Font("Verdana", Font.BOLD, 13));
 		
+		//JLABEL DEL CONSUMO MAXIMO QUE ESTA SELECCIONANDO EL USUARIO
 		JLabel consumoSl = new JLabel("");
 		consumoSl.setBackground(Color.WHITE);
 		consumoSl.setFont(new Font("Verdana", Font.BOLD, 13));
@@ -118,7 +128,7 @@ public class Panel1 extends JPanel {
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 			
-				//convierte a float el entero para obtener los decimales
+				//CONVIERTE A FLOAT EL ENTERO PARA OBTENER LA CIFRA REAL CON DECIMALES
 				consumoSl.setText(""+(float)slider.getValue()/10);
 				
 			}
@@ -127,19 +137,21 @@ public class Panel1 extends JPanel {
 		slider.setPaintTicks(true);
 	
 		try {
+			//LE DA EL MAXIMO CONSUMO QUE HAY AL SLIDER
 			slider.setMaximum(gc.consumoMax());
 		} catch (ClassNotFoundException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 		
+		//JLABEL DEL MINIMO CONSUMO EN EL SLIDER
 		JLabel minimoSl = new JLabel("");
 		minimoSl.setHorizontalAlignment(SwingConstants.CENTER);
 		minimoSl.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		minimoSl.setText(""+(float)slider.getMinimum()/10);
 		
 		
-		
+		//JLABEL DEL MAXIMO CONSUMO EN EL SLIDER
 		JLabel maximoSl = new JLabel("");
 		maximoSl.setHorizontalAlignment(SwingConstants.CENTER);
 		maximoSl.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -306,7 +318,10 @@ public class Panel1 extends JPanel {
 		botonEliminar.setIcon(new ImageIcon(Panel1.class.getResource("/assets/iconsapp/recycle-bin-icon_Graph.png")));
 		toolBar.add(botonEliminar);
 		
-
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null, "La base de datos se encuentra apagada, para poder acceder debe estar encendida.","ERROR",JOptionPane.WARNING_MESSAGE);
+			System.exit(0);
+		}
 
 			
 		
